@@ -1,0 +1,36 @@
+{% extends "piro14/layout.html" %}
+
+{% block content %}
+
+
+<form action="" method="post" autocomplete="off">
+    {% csrf_token %}
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>내가 고른 카드</th>
+                <td>
+                    <select name="creator_card">
+                        {% for card_option in creator_card_options %}
+                            <option value = "{{ card_option }}"> {{ card_option }} </option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <th>공격할 상대는?</th>
+                <td>
+                    <select name="opponent">
+                        {% for opponent_option in opponent_options %}
+                            <option> {{ opponent_option }} </option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <input type="submit" value="공격하기!" class="btn btn-primary" />
+</form>
+{% endblock %}

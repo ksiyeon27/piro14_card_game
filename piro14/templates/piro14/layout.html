@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piro CardGame</title>
+    <style>
+        * {
+            text-decoration: none;
+            list-style-type: none;
+        }
+
+        body {
+            background: lavender;
+        }
+
+        #content {
+            background: lightblue;
+            margin: 0 auto;
+            width: 100%;
+            height: 600px;
+            text-align: center;
+        }
+        
+        #top_nav {
+            display:flex;
+            justify-content: center;
+
+        }
+        #top_nav ul a {
+            display: inline-block;
+            margin: 0 50px;
+            color: white;
+            font-size: 15pt;
+        }
+        
+        .last {
+            text-align: center;
+        }
+
+    </style>
+
+    {% block head %}
+    {% endblock %}
+
+</head>
+<body>
+    
+    <nav id='top_nav'>
+        <ul>
+            <a href="{% url 'piro14:main_after' %}">PIROGRAMING CARDGAME</a>
+            <a href="{% url 'piro14:game_attack' %}">게임하기</a>
+            <a href="">랭크보기</a>   
+            <a href="{% url "piro14:logout" %}">로그아웃</a> 
+        </ul>
+    </nav>
+    
+    <div id="content">
+
+        <div id="content__top">
+            <h2 class="title">
+                {% block title %}
+                {% endblock %}
+            </h2>
+            <p class="detail">
+                {% block detail %}
+                {% endblock %}
+            </p>
+        </div>
+    
+
+        <hr/>
+
+        {% block content %}
+        {% endblock %}    
+
+    </div>
+
+    <hr/>
+    <footer class="last">
+        <div>피로그래밍 14기 화이티이이잉</div>
+        <div>방구석 피로그래밍 연구소 | 다들 마지막까지 빠이팅입니다앙</div>
+
+</body>
+</html>
+
+

@@ -1,0 +1,20 @@
+{% extends "piro14/layout.html" %}
+
+{% block content %}
+
+<div class="main_title">
+
+    <h1>전 세계 피로그래머와</h1>
+    <h1>한 판 승부 숫자카드게임</h1>
+
+</div>
+
+<p>{{ user.username }}님이 로그인 중</p>
+
+<button class="gameplay">
+<a href="{% url 'piro14:game_attack' %}">게임하기<a>
+<br/>
+<a href="{% url 'piro14:game_list' %}">전적보기</a>
+</button>
+
+{% endblock %}  

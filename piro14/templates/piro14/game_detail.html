@@ -1,0 +1,76 @@
+{% extends "piro14/layout.html" %}
+
+{% block content %}
+    {% if user == game.creator and game.current_turn != user %}
+        <h2>{{ game.id }} - {{ game.creator }} vs {{ game.opponent }}</h2>
+        
+        <br/><br/>
+        <h3>진행중...</h3>
+        <h3>{{ user.username }}: {{ game.creator_card }}</h3>
+
+        <form action = "{% url 'piro14:game_delete' game.id %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value = '게임 취소'>
+        </form>
+
+        <button><a href="{% url 'piro14:game_list'%} " >전적 목록</a></button>
+    {% endif %}
+
+
+    {% if user == game.opponent and game.current_turn == user %}
+        <h2>{{ game.id }} - {{ game.creator }} vs {{ game.opponent }}</h2>
+        
+        <br/><br/>
+        <button><a href="{% url 'piro14:game_counter_attack' game.id %} " >목록</a></button>
+
+        <hr/>
+        <br/><br/>
+        <button><a href="{% url 'piro14:game_list' %} " >전적 목록</a></button>
+
+    {% endif %}
+
+
+    {% if game.completed %}
+        <h2>{{ game.id }} - {{ game.creator }} vs {{ game.opponent }}</h2>
+        <hr/>
+        
+        {% if game.greater == True %}    
+            <h2>숫자가 더 큰 사람이 대결에서 이깁니다</h2>
+        {% else %}
+            <h2>숫자가 더 작은 사람이 대결에서 이깁니다</h2>
+        {% endif }
+
+        <hr/>
+        <h3>{{ game.creator.username }} : {{ game.creator_card }}</h3>
+        <h3>{{ game.opponent.username }} : {{ game.opponent_card }}</h3>
+        <hr/>
+
+        {% if game.draw == True %}
+        <h3>결과:비김</h3>
+        <hr/>
+        <h3>점수: + {{ game.creator_card }}</h3>
+
+        {% elif user == game.winner %}
+        <h3>결과:승리</h3>
+        <hr/>
+            {% if game.creator == user %}
+                <h3>점수: + {{ game.creator_card }}</h3>
+            {% else %}
+                <h3>점수: + {{ game.opponent_card }}</h3>
+            {% endif %}
+
+        {% else %}
+        <h3>결과:패배</h3>
+        <hr/>
+            {% if game.creator == user %}
+                <h3>점수: - {{ game.creator_card }}</h3>
+            {% else %}
+                <h3>점수: - {{ game.opponent_card }}</h3>
+            {% endif %}
+
+        {% endif %}
+    {% endif %}
+
+
+    {% endif %}
+{% endblock %}

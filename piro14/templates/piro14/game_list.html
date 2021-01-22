@@ -1,0 +1,41 @@
+{% extends "piro14/layout.html" %}
+
+{% block content %}
+<div>
+현재 플레이어의 게임 전적을 보여주는 페이지입니다. 글을 조금 더 써봅시다. 조금만 더요.
+<br/>진행 중인 게임은 취소할 수 있어요! 물론 자신이 공격한(=도전장을 내민)게임만 해당됩니다.
+
+</div>
+<p>현재 플레이어: {{ user.username }}</p>
+<div id = "game_list">
+    {% for game in games %}
+            <div>
+                <span>{{ game.id }} - {{ game.creator }} vs {{ game.opponent }}</span>
+                {% if user == game.winner %}
+                    <span>
+                            결과: 승리
+                    </span>
+                {% elif user == game.creator and game.current_turn != user %}
+                    <span>
+                        진행중...
+                        <form action = "{% url 'piro14:game_delete' game.id %}" method="POST">
+                            {% csrf_token %}
+                            <input type="submit" value = '게임 취소'>
+                        </form>
+                    </span>
+                {% elif user == game.opponent and game.current_turn == user %}
+                    <span>
+                        <button><a href="{% url 'piro14:game_counter_attack' game.id%} " >반격하기</a></button>
+                    </span>
+                {%elif user == game.loser %}
+                    <span>
+                            결과: 패배
+                    </span>
+                {% endif %}
+                <span>
+                    <button><a href="{% url 'piro14:game_detail' game.id %}" >게임 정보</a></button>
+                </span>
+            </div>
+    {% endfor %}
+</div>
+{% endblock %}

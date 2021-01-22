@@ -1,0 +1,14 @@
+##game ranking
+
+{% extends "piro14/layout.html" %}
+
+{% block content %}
+<h1>PiRO 명예의 전당</h1>
+
+{%for rank in users %}
+    <p>{{forloop.counter}}등 {{users.name}}님! 총점수:{{users.score}}점</p>
+    <button><a href = "{%url 'piro14:game_list' %}">전적 목록</a></button>
+{% endfor %}
+
+
+{% endblock %}
