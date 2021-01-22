@@ -147,22 +147,22 @@ def game_counter_attack(request, pk):
         elif game.greater == True and game.creator_card < game.opponent_card: 
             game.winner = game.opponent
             game.loser = game.creator
-            game_creator.score = score - game.creator_card
-            game_opponent.score + game.opponent_card
+            game_creator.score -= game.creator_card
+            game_opponent.score += game.opponent_card
         elif game.greater == False and game.creator_card > game.opponent_card:
             game.winner = game.opponent
             game.loser = game.creator
-            game_creator.score - game.creator_card
-            game_opponent.score + game.opponent_card
+            game_creator.score -= game.creator_card
+            game_opponent.score += game.opponent_card
         elif game.greater == False and game.creator_card < game.opponent_card: 
             game.winner = game.creator
             game.loser = game.opponent
-            game_creator.score = score + game.creator_card
-            game_opponent.score - game.opponent_card
+            game_creator.score += game.creator_card
+            game_opponent.score -= game.opponent_card
         else: 
             game.draw = True
-            game_creator.score + game.creator_card
-            game_opponent.score + game.opponent_card
+            game_creator.score += game.creator_card
+            game_opponent.score += game.opponent_card
             
         game.completed = True
         return redirect('piro14:game_detail', pk=game.id)

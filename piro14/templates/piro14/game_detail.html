@@ -1,7 +1,7 @@
 {% extends "piro14/layout.html" %}
 
 {% block content %}
-    {% if user == game.creator and game.current_turn != user %}
+    {% if user == game.creator and game.completed != True %}
         <h2>{{ game.id }} - {{ game.creator }} vs {{ game.opponent }}</h2>
         
         <br/><br/>
@@ -21,7 +21,7 @@
         <h2>{{ game.id }} - {{ game.creator }} vs {{ game.opponent }}</h2>
         
         <br/><br/>
-        <button><a href="{% url 'piro14:game_counter_attack' game.id %} " >목록</a></button>
+        <button><a href="{% url 'piro14:game_counter_attack' game.id %} " >대응하기</a></button>
 
         <hr/>
         <br/><br/>
@@ -38,7 +38,7 @@
             <h2>숫자가 더 큰 사람이 대결에서 이깁니다</h2>
         {% else %}
             <h2>숫자가 더 작은 사람이 대결에서 이깁니다</h2>
-        {% endif }
+        {% endif %}
 
         <hr/>
         <h3>{{ game.creator.username }} : {{ game.creator_card }}</h3>
@@ -72,5 +72,5 @@
     {% endif %}
 
 
-    {% endif %}
+
 {% endblock %}

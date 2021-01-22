@@ -36,7 +36,7 @@ def save_user_profile(sender, instance, **kwargs):
 
 class UserManager(DefaultUserManager):
     def get_or_create_google_user(self, user_pk, extra_data):
-        user = newUser.objects.get(pk=user_pk)
+        user = User.objects.get(pk=user_pk)
         user.username = extra_data['name']
         user.save()
         return user
